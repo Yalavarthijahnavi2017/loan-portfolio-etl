@@ -1,0 +1,20 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+data/processed/
+data/warehouse/
+*.db
+
+# dbt artifacts
+dbt/target/
+dbt/logs/
+dbt/*.duckdb
+dbt/dbt_packages/
+
+# Airflow runtime artifacts (if AIRFLOW_HOME points at the project)
+logs/
+airflow.db
+airflow.cfg
+webserver_config.py

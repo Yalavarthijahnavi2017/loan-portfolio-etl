@@ -1,0 +1,20 @@
+# dbt profile for this project (DuckDB engine).
+#
+# Why DuckDB: there is no Postgres server on the dev machine, and the
+# canonical warehouse is a SQLite file. dbt-duckdb can ATTACH that SQLite
+# file read/write as an external database, so dbt models query the exact
+# table the Python ETL loaded — no export/copy step that could drift.
+#
+# Paths are relative to the directory dbt is invoked from. Run dbt from
+# this dbt/ folder (as the README shows) so both the DuckDB file and the
+# ../data/warehouse/loans.db attach path resolve.
+loan_portfolio:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: loans_dbt.duckdb
+      attach:
+        - path: ../data/warehouse/loans.db
+          type: sqlite
+          alias: warehouse

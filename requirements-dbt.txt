@@ -1,0 +1,8 @@
+# dbt layer dependencies (DuckDB engine).
+# Install after requirements.txt:
+#   pip install -r requirements-dbt.txt
+# Versions below are the exact combination the dbt project was built
+# and tested with (`dbt build`: 3 models, 18 tests, all passing).
+dbt-core==1.12.6
+dbt-duckdb==1.11.0
+duckdb==2.0.0

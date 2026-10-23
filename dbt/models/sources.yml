@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: warehouse
+    database: warehouse
+    schema: main
+    description: >
+      The SQLite warehouse file (data/warehouse/loans.db) attached into
+      DuckDB. Its tables are owned by the Python ETL — dbt reads them,
+      never writes them.
+    tables:
+      - name: loans
+        description: >
+          One row per loan. Full-refresh loaded by pipeline.py
+          (src/load.py) after passing the validate stage's
+          data-quality checks.

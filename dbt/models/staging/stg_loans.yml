@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: stg_loans
+    description: >
+      Cleaned loan grain for analytics. One row per loan, mirrored from
+      the ETL warehouse table with proper DATE/TIMESTAMP types and a
+      derived issue_month.
+    columns:
+      - name: loan_key
+        description: "Surrogate primary key minted by the ETL at load time."
+        tests:
+          - unique
+          - not_null
+      - name: row_hash
+        description: "md5 of the raw source row — dedupe key and lineage fingerprint."
+        tests:
+          - unique
+          - not_null
+      - name: issue_date
+        description: "Loan issue month (day is always the 1st — the source has month granularity)."
+        tests:
+          - not_null
+      - name: loan_amount
+        tests:
+          - not_null
+      - name: loan_status
+        description: "Performance status. Allowed values mirror src/validate.py KNOWN_LOAN_STATUSES."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "Current"
+                  - "Fully Paid"
+                  - "In Grace Period"
+                  - "Late (16-30 days)"
+                  - "Late (31-120 days)"
+                  - "Charged Off"
+                  - "Default"
+      - name: grade
+        description: "LendingClub letter grade, A (lowest risk) to G (highest risk)."
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["A", "B", "C", "D", "E", "F", "G"]
+      - name: term_months
+        tests:
+          - accepted_values:
+              arguments:
+                values: [36, 60]

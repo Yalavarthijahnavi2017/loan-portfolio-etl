@@ -1,0 +1,24 @@
+# dbt project for the loan-portfolio-etl warehouse.
+#
+# This layer models the loans table that the Python ETL (pipeline.py)
+# loads into SQLite. It does NOT re-extract or re-clean raw data — its
+# job is analytics modeling (staging + marts) and declarative schema tests
+# on top of the warehouse the ETL already validated.
+name: loan_portfolio
+version: 1.0.0
+config-version: 2
+
+profile: loan_portfolio
+
+model-paths: ["models"]
+test-paths: ["tests"]
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  loan_portfolio:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

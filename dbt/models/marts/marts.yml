@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: mart_portfolio_by_status_grade
+    description: >
+      Portfolio composition and performance by loan status and grade.
+      Grain: one row per (loan_status, grade).
+    columns:
+      - name: loan_status
+        tests:
+          - not_null
+      - name: grade
+        tests:
+          - not_null
+      - name: loan_count
+        tests:
+          - not_null
+  - name: mart_monthly_originations
+    description: >
+      Origination volume and average pricing by issue month.
+      Grain: one row per issue_month.
+    columns:
+      - name: issue_month
+        tests:
+          - unique
+          - not_null
+      - name: loans_issued
+        tests:
+          - not_null

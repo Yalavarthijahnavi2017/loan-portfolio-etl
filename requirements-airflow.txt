@@ -1,0 +1,7 @@
+# Airflow orchestration dependencies.
+# Install after requirements.txt:
+#   pip install -r requirements-airflow.txt
+# Version below is what dags/loan_etl_dag.py was validated with:
+# DagBag parse with zero import errors, plus a full end-to-end
+# `airflow dags test` run (all 3 tasks success).
+apache-airflow==3.3.2
